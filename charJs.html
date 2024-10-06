@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Temperatura e Umidade</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        canvas {
+            width: 400px !important;
+            height: 300px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="myLineChart"></canvas>
+        <canvas id="myBarChart"></canvas>
+    </div>
+
+    <script>
+        // Gráfico de Linhas
+        const ctxLine = document.getElementById('myLineChart');
+        const labels = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+        const lineData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Temperatura',
+                    data: [30, 29, 28, 25, 22, 23],
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1,
+                    hidden: false // padrão visível
+                },
+                {
+                    label: 'Umidade',
+                    data: [80, 82, 80, 85, 80, 83],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                    hidden: false // padrão visível
+                }
+            ]
+        };
+
+        const lineConfig = {
+            type: 'line',
+            data: lineData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 20,
+                        max: 90
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        };
+
+        new Chart(ctxLine, lineConfig);
+
+        // Gráfico de Colunas
+        const ctxBar = document.getElementById('myBarChart');
+        const barData = {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+            datasets: [
+                {
+                    label: 'Temperatura Média',
+                    data: [22, 24, 27, 23, 20, 18],
+                    backgroundColor: 'rgba(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 1,
+                    hidden: false // padrão visível
+                },
+                {
+                    label: 'Umidade Média',
+                    data: [90, 89, 93, 87, 88, 82],
+                    backgroundColor: 'rgba(75, 192, 192)',
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 1,
+                    hidden: false // padrão visível
+                }
+            ]
+        };
+
+        const barConfig = {
+            type: 'bar',
+            data: barData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        };
+
+        new Chart(ctxBar, barConfig);
+    </script>
+</body>
+</html>
